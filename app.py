@@ -95,6 +95,11 @@ def script():
     return send_from_directory(BASE_DIR, "script.js")
 
 
+@app.get("/healthz")
+def healthcheck():
+    return jsonify({"status": "ok"})
+
+
 @app.post("/predict")
 def predict():
     uploaded_file = request.files.get("audio")
@@ -118,4 +123,4 @@ def predict():
 
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", "5000"))
-    app.run(host="127.0.0.1", port=port, debug=False)
+    app.run(host="0.0.0.0", port=port, debug=False)

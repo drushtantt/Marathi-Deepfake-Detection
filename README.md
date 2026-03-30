@@ -84,6 +84,34 @@ Then open:
 http://127.0.0.1:5000
 ```
 
+## Deploy on Render
+
+This repo is set up for deployment on Render with Docker.
+
+Files added for deployment:
+
+- [Dockerfile](Dockerfile)
+- [render.yaml](render.yaml)
+- [app.py](app.py) now exposes a `/healthz` endpoint and binds to `0.0.0.0`
+
+### Steps
+
+1. Push this repository to GitHub.
+2. Sign in to Render and create a new Web Service.
+3. Connect the GitHub repo `drushtantt/Marathi-Deepfake-Detection`.
+4. Render should detect the included `render.yaml`, or you can choose Docker manually.
+5. Deploy the service.
+
+After deployment, Render will assign a public URL such as:
+
+```text
+https://your-service-name.onrender.com
+```
+
+### Why Docker
+
+This project depends on TensorFlow plus audio-processing system libraries, so Docker is the most reliable way to keep local and production environments consistent.
+
 ## Diagnostic Script
 
 To test how different mel-spectrogram preprocessing variants affect CNN predictions:

@@ -1,0 +1,5 @@
+.git
+__pycache__/
+.python_packages/
+server.out.log
+server.err.log
