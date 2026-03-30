@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Marathi Audio Deepfake Detector</title>
+  <meta
+    name="description"
+    content="Frontend website for a Marathi audio deepfake detection project using mel-spectrogram analysis and CNN-based classification."
+  >
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="page-shell">
+    <header class="hero">
+      <nav class="topbar">
+        <div class="brand">
+          <span class="brand-mark">M</span>
+          <div>
+            <p class="eyebrow">Research Interface</p>
+            <h1>Marathi Audio Deepfake Detector</h1>
+          </div>
+        </div>
+        <a class="topbar-link" href="#detector">Open Detector</a>
+      </nav>
+
+      <div class="hero-grid">
+        <section class="hero-copy">
+          <p class="eyebrow">Human vs AI Voice Classification</p>
+          <h2>Designed for regional speech, built around spectrogram evidence.</h2>
+          <p class="hero-text">
+            This frontend turns the project into a modern website for showcasing the Marathi speech
+            deepfake detector. It mirrors the real pipeline in the repository: audio input,
+            feature extraction, mel-spectrogram inspection, and classification-ready output.
+          </p>
+          <div class="hero-actions">
+            <a class="button button-primary" href="#detector">Try the Upload Flow</a>
+            <a class="button button-secondary" href="#pipeline">See the Pipeline</a>
+          </div>
+          <ul class="hero-stats" aria-label="Project stats">
+            <li>
+              <strong>28,863</strong>
+              <span>five-second Marathi clips</span>
+            </li>
+            <li>
+              <strong>3</strong>
+              <span>speech classes in the CNN setup</span>
+            </li>
+            <li>
+              <strong>128 x 128</strong>
+              <span>mel feature target shape</span>
+            </li>
+          </ul>
+        </section>
+
+        <aside class="hero-panel">
+          <div class="panel-card glass">
+            <p class="panel-label">Detection Flow</p>
+            <ol class="flow-list">
+              <li>Upload a Marathi speech sample</li>
+              <li>Preview waveform and spectrogram cues</li>
+              <li>Prepare features for model inference</li>
+              <li>Return real / synthetic confidence</li>
+            </ol>
+          </div>
+          <div class="panel-card accent-card">
+            <p class="panel-label">Current Frontend State</p>
+            <p>
+              Browser-side previews are fully working. Real model prediction still needs a Python
+              API endpoint that loads the trained weights from this repository.
+            </p>
+          </div>
+        </aside>
+      </div>
+    </header>
+
+    <main>
+      <section class="section detector-section" id="detector">
+        <div class="section-heading">
+          <p class="eyebrow">Interactive Demo</p>
+          <h3>Upload audio and inspect it like a detection pipeline would.</h3>
+        </div>
+
+        <div class="detector-grid">
+          <div class="upload-card card">
+            <label class="upload-dropzone" for="audio-upload" id="dropzone">
+              <input id="audio-upload" type="file" accept="audio/*">
+              <span class="dropzone-badge">Audio Input</span>
+              <strong>Drop a `.wav`, `.mp3`, or `.flac` file here</strong>
+              <span>or click to browse your machine</span>
+            </label>
+
+            <div class="file-meta" id="file-meta">
+              <p class="meta-empty">No file selected yet.</p>
+            </div>
+
+            <audio id="audio-player" controls preload="metadata"></audio>
+          </div>
+
+          <div class="preview-card card">
+            <div class="preview-header">
+              <div>
+                <p class="eyebrow">Signal Preview</p>
+                <h4>Waveform</h4>
+              </div>
+              <span class="canvas-tag">Browser analysis</span>
+            </div>
+            <canvas id="waveform-canvas" width="900" height="260" aria-label="Waveform preview"></canvas>
+          </div>
+
+          <div class="preview-card card">
+            <div class="preview-header">
+              <div>
+                <p class="eyebrow">Feature Preview</p>
+                <h4>Spectrogram-style Energy Map</h4>
+              </div>
+              <span class="canvas-tag">Approximation</span>
+            </div>
+            <canvas id="spectrogram-canvas" width="900" height="260" aria-label="Spectrogram preview"></canvas>
+          </div>
+
+          <div class="results-card card">
+            <div class="preview-header">
+              <div>
+                <p class="eyebrow">Inference Slot</p>
+                <h4>Model Result</h4>
+              </div>
+            </div>
+            <div class="result-placeholder" id="result-placeholder">
+              <strong>Frontend ready</strong>
+              <p>
+                Upload an audio sample and run the CNN model to get a live prediction from the
+                saved weights in this repository.
+              </p>
+            </div>
+            <button class="button button-primary full-width" id="analyze-button" type="button">
+              Analyze Audio
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="pipeline">
+        <div class="section-heading">
+          <p class="eyebrow">Project Pipeline</p>
+          <h3>Mapped directly from the code already present in the repository.</h3>
+        </div>
+
+        <div class="pipeline-grid">
+          <article class="card pipeline-step">
+            <span>01</span>
+            <h4>Audio Collection</h4>
+            <p>Human Marathi speech plus synthetic clips generated with Amazon Polly and gTTS.</p>
+          </article>
+          <article class="card pipeline-step">
+            <span>02</span>
+            <h4>Feature Extraction</h4>
+            <p>Python scripts derive MFCCs, mel-spectrograms, and graph-based structures.</p>
+          </article>
+          <article class="card pipeline-step">
+            <span>03</span>
+            <h4>Model Inference</h4>
+            <p>Saved CNN, SVM, and GNN model weights can be loaded by a serving API.</p>
+          </article>
+          <article class="card pipeline-step">
+            <span>04</span>
+            <h4>Decision Output</h4>
+            <p>The frontend can display class probabilities, feature previews, and upload metadata.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="section insights-section">
+        <div class="section-heading">
+          <p class="eyebrow">Why This Matters</p>
+          <h3>Regional-language deepfake detection needs interfaces people can actually use.</h3>
+        </div>
+
+        <div class="insight-grid">
+          <article class="card insight-card">
+            <h4>Trust Through Visibility</h4>
+            <p>Users can inspect the uploaded signal instead of relying on a black-box prediction screen.</p>
+          </article>
+          <article class="card insight-card">
+            <h4>Research to Product Bridge</h4>
+            <p>This site gives the project a presentation layer for demos, submissions, and future deployment.</p>
+          </article>
+          <article class="card insight-card">
+            <h4>Backend-Ready Structure</h4>
+            <p>The interface already has a clean place to plug in inference responses once an API is added.</p>
+          </article>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
